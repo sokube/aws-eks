@@ -583,9 +583,9 @@ kubectl get node
 
 We should see :
 ```shell
-NAME                      STATUS ROLES  AGE   VERSION
-ip-10-0-0-89.ec2.internal Ready  <none> 5m21s v1.18.9-eks-d1db3c
-ip-10-0-1-53.ec2.internal Ready  <none> 5m35s v1.18.9-eks-d1db3c
+NAME                                     STATUS ROLES  AGE   VERSION
+ip-10-0-0-18.eu-west-3.compute.internal  Ready  <none> 5m21s v1.18.9-eks-d1db3c
+ip-10-0-1-149.eu-west-3.compute.internal Ready  <none> 5m35s v1.18.9-eks-d1db3c
 ```
 
 ### Application Deployment
@@ -632,7 +632,7 @@ EKS_ELB_HOSTNAME=$(kubectl get svc app-shark -o jsonpath='{.status.loadBalancer.
 We should see : 
 
 ```shell
-a2dd31cb63d604165bf3f464b36d626f-1015502290.eu-west-3.elb.amazonaws.com
+ac0dd04db8815433cb1cd9a0da8be9cb-328982156.eu-west-3.elb.amazonaws.com
 ```
 
 > Wait around 5 minutes to the Elastic Load Balancer is up…
@@ -647,11 +647,11 @@ curl http://$EKS_ELB_HOSTNAME:8080
 
 - Web browser (better solution) 
 
-Paste the DNS Name *http://a2dd31cb63d604165bf3f464b36d626f-1015502290.eu-west-3.elb.amazonaws.com:8080* in the web browser and add port 8080 to reach shark application.
+Paste the DNS Name *http://ac0dd04db8815433cb1cd9a0da8be9cb-328982156.eu-west-3.elb.amazonaws.com:8080* in the web browser and add port 8080 to reach shark application.
 
 We should see:
 
-![shark-app](https://user-images.githubusercontent.com/58267422/100019516-768eed00-2dde-11eb-9cf7-1d4a84a75792.png)
+![app_shark_eu-west-3](https://user-images.githubusercontent.com/58267422/100796417-e7f31f00-3420-11eb-98b9-07fc5862151a.png)
 
 
 The *shak-app* is well reachable with the DNS name of the ELB. The EKS Cluster is working.
