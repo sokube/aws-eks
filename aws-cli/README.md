@@ -36,11 +36,11 @@ Knowlege of Kubernetes is required to understand this tutorial. You can learn **
 
 ## AWS Region 
 
-For this tutorial we will work in ```us-east-1``` AWS Region. All resources will be created in **US EAST (N.Virginia)** region.
+For this tutorial we will work in ```eu-west-3``` AWS Region. All resources will be created in **EUROPE (Paris)** region.
 
 Define AWS Region : 
 ```shell
-export EKS_AWS_REGION="us-east-1"
+export EKS_AWS_REGION="eu-west-3"
 ```
 
 ## Networking Setup
@@ -151,25 +151,22 @@ aws ec2 create-route \
 
 AWS provides a principle of Availability Zone (AZ) to increase High-Availability, Fault-Tolerance and Reliability. For more details you can check the [official documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html). To deploy a EKS Cluster it's mandatory to create at least two subnets in two different AZ. Each worker node will be deployed in different AZ.
 
-We will work in the AWS Region US East (N. Virginia). This AWS region corresponds to the code name "us-east-1". This AWS Region is made up of 6 Availability Zones: 
+We will work in the AWS Region **Europe (Paris)**. This AWS region corresponds to the code name ```eu-west-3```. This AWS Region is made up of 6 Availability Zones: 
 
-- us-east-1a 
-- us-east-1b
-- us-east-1c
-- us-east-1d
-- us-east-1e
-- us-east-1f
+- eu-west-3a
+- eu-west-3b
+- eu-west-3c
 
-For this tutorial, we will use ```us-east-1a``` and ```us-east-1b``` Availability Zones. Define location of subnets :
+For this tutorial, we will use ```eu-west-3a``` and ```eu-west-3b``` Availability Zones. Define location of subnets :
 
 ```shell
-export EKS_AVAILABILITY_ZONE_01="us-east-1a"
-export EKS_AVAILABILITY_ZONE_02="us-east-1b"
+export EKS_AVAILABILITY_ZONE_01="eu-west-3a"
+export EKS_AVAILABILITY_ZONE_02="eu-west-3b"
 ```
 
 Both subnets will be created in the *eks-VPC*. 
 
-Create a first subnet named *eks-PublicSubnet01*, in the ```us-east-1a``` Availability Zone with the *10.0.0.0/24* CIDR block :
+Create a first subnet named *eks-PublicSubnet01*, in the ```eu-west-3a``` Availability Zone with the *10.0.0.0/24* CIDR block :
 
 ```shell
 aws ec2 create-subnet \
@@ -180,7 +177,7 @@ aws ec2 create-subnet \
   --tag-specifications 'ResourceType=subnet,Tags=[{Key=Name,Value=eks-PublicSubnet01},{Key=Project,Value=aws-eks}]'
 ```
 
-Create a second subnet named *eks-PublicSubnet02*, in the ```us-east-1b``` Availability Zone with the *10.0.1.0/24* CIDR block :
+Create a second subnet named *eks-PublicSubnet02*, in the ```eu-west-3a``` Availability Zone with the *10.0.1.0/24* CIDR block :
 
 ```shell
 aws ec2 create-subnet \
@@ -354,14 +351,14 @@ arn:aws:iam::123456789123:role/EKSClusterRole-eksClusterRole-1N4G0KR302L5Y
 
 After, having created IAM Cluster Role *EKSClusterRole*  We will create a EKS Control Plane with the following characteristics :
 
-- AWS Region : us-east-1
+- AWS Region : eu-west-3
 - EKS Cluster Name : EKS
 - Kubernetes version : 1.18
 
 Define and allocate previously characteristics to a variables :
 
 ```shell
-export EKS_AWS_REGION="us-east-1"
+export EKS_AWS_REGION="eu-west-3"
 export EKS_CLUSTER_NAME="EKS"
 export EKS_CLUSTER_VERSION="1.18"
 ```
@@ -573,7 +570,7 @@ aws eks \
 We should see :
 
 ```shell
-Updated context arn:aws:eks:us-east-1:123456789123:cluster/EKS in /home/admin/.kube/config
+Updated context arn:aws:eks:eu-west-3:123456789123:cluster/EKS in /home/admin/.kube/config
 ```
 
 > The kubeconfig file is automatically merged to the "$HOME/.kube/config"
@@ -635,7 +632,7 @@ EKS_ELB_HOSTNAME=$(kubectl get svc app-shark -o jsonpath='{.status.loadBalancer.
 We should see : 
 
 ```shell
-a2dd31cb63d604165bf3f464b36d626f-1015502290.us-east-1.elb.amazonaws.com
+a2dd31cb63d604165bf3f464b36d626f-1015502290.eu-west-3.elb.amazonaws.com
 ```
 
 > Wait around 5 minutes to the Elastic Load Balancer is up…
@@ -650,7 +647,7 @@ curl http://$EKS_ELB_HOSTNAME:8080
 
 - Web browser (better solution) 
 
-Paste the DNS Name *http://a2dd31cb63d604165bf3f464b36d626f-1015502290.us-east-1.elb.amazonaws.com:8080* in the web browser and add port 8080 to reach shark application.
+Paste the DNS Name *http://a2dd31cb63d604165bf3f464b36d626f-1015502290.eu-west-3.elb.amazonaws.com:8080* in the web browser and add port 8080 to reach shark application.
 
 We should see:
 
@@ -681,7 +678,7 @@ Keep in mind that resources, even idle, are provisioned and billed. To avoid exp
 
 ```shell
 
-export EKS_AWS_REGION="us-east-1" 
+export EKS_AWS_REGION="eu-west-3" 
 export EKS_CLUSTER_NAME="EKS"
 export EKS_NODE_GROUP_NAME="NodeGroup01"
 export EKS_CLUSTER_ROLE_STACK_NAME="EKSClusterRole"
