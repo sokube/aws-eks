@@ -13,7 +13,7 @@ For deployment of AWS EKS Cluster you can follow the complete tutorial by clicki
 
 ```shell
 export EKS_STACK_NAME="eks"
-export EKS_AWS_REGION="us-east-1"
+export EKS_AWS_REGION="eu-west-3"
 export EKS_KEY_PAIR_NAME="my-eks-key"
 ```
 
