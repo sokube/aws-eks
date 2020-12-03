@@ -177,7 +177,7 @@ aws ec2 create-subnet \
   --tag-specifications 'ResourceType=subnet,Tags=[{Key=Name,Value=eks-PublicSubnet01},{Key=Project,Value=aws-eks}]'
 ```
 
-Create a second subnet named *eks-PublicSubnet02*, in the ```eu-west-3a``` Availability Zone with the *10.0.1.0/24* CIDR block :
+Create a second subnet named *eks-PublicSubnet02*, in the ```eu-west-3b``` Availability Zone with the *10.0.1.0/24* CIDR block :
 
 ```shell
 aws ec2 create-subnet \
@@ -378,7 +378,7 @@ aws eks create-cluster \
 You can check the cluster creation status with the following command. Until this loop is complete, the EKS cluster is not ready.
 
 ```shell
-started_date=$(date |  awk '{print $4}')
+started_date=$(date '+%H:%M')
 start=`date +%s`
 while true; do
   echo -e "EKS Cluster status : CREATING \n"
@@ -387,7 +387,7 @@ while true; do
     echo -e "EKS Cluster status : ACTIVE \n"
     end=`date +%s`
     runtime=$((end-start))
-    finished_date=$(date |  awk '{print $4}')
+    finished_date=$(date '+%H:%M')
     echo "started at :" $started_date 
     echo "finished at :" $finished_date
     hours=$((runtime / 3600)); minutes=$(( (runtime % 3600) / 60 )); seconds=$(( (runtime % 3600) % 60 )); echo "Total time : $hours h $minutes min $seconds sec"
@@ -502,7 +502,7 @@ aws eks create-nodegroup \
 Again, You can check the node groups creation status with the following command. Until this loop is complete, the node group is not ready.
 
 ```shell
-started_date=$(date |  awk '{print $4}')
+started_date=$(date '+%H:%M')
 start=`date +%s`
 while true; do
   echo -e "EKS Node Group status : CREATING \n"
@@ -511,7 +511,7 @@ while true; do
     echo -e "EKS Node Group status : ACTIVE \n"
     end=`date +%s`
     runtime=$((end-start))
-    finished_date=$(date |  awk '{print $4}')
+    finished_date=$(date '+%H:%M')
     echo "started at :" $started_date 
     echo "finished at :" $finished_date
     hours=$((runtime / 3600)); minutes=$(( (runtime % 3600) / 60 )); seconds=$(( (runtime % 3600) % 60 )); echo "Total time : $hours h $minutes min $seconds sec"
@@ -708,7 +708,7 @@ aws eks delete-nodegroup \
 You can get the EKS Node Group deletion status : 
 
 ```shell
-started_date=$(date |  awk '{print $4}')
+started_date=$(date '+%H:%M')
 start=`date +%s`
 while true; do 
   echo -e "EKS Node Group status : DELETING  \n"
@@ -717,7 +717,7 @@ while true; do
     echo -e "EKS Node Group status : SUCCESSFULLY DELETED \n"
     end=`date +%s`
     runtime=$((end-start))
-    finished_date=$(date |  awk '{print $4}')
+    finished_date=$(date '+%H:%M')
     echo "started at :" $started_date 
     echo "finished at :" $finished_date
     hours=$((runtime / 3600)); minutes=$(( (runtime % 3600) / 60 )); seconds=$(( (runtime % 3600) % 60 )); echo "Total time : $hours h $minutes min $seconds sec"
@@ -756,7 +756,7 @@ aws eks delete-cluster --region $EKS_AWS_REGION --name $EKS_CLUSTER_NAME
 You can get the EKS Cluster deletion status : 
 
 ```shell
-started_date=$(date |  awk '{print $4}')
+started_date=$(date '+%H:%M')
 start=`date +%s`
 while true; do
   echo -e "EKS Cluster status : DELETING \n"
@@ -765,7 +765,7 @@ while true; do
     echo -e "EKS Cluster status : SUCCESSFULLY DELETED \n"
     end=`date +%s`
     runtime=$((end-start))
-    finished_date=$(date |  awk '{print $4}')
+    finished_date=$(date '+%H:%M'))
     echo "started at :" $started_date 
     echo "finished at :" $finished_date
     hours=$((runtime / 3600)); minutes=$(( (runtime % 3600) / 60 )); seconds=$(( (runtime % 3600) % 60 )); echo "Total time : $hours h $minutes min $seconds sec"
