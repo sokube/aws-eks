@@ -741,9 +741,9 @@ EKS Node Group status : DELETING
 
 EKS Node Group status : SUCCESSFULLY DELETED 
 
-started at : 14:18:55
-finished at : 14:31:22
-Total time : 0 h 12 min 27 sec
+started at : 22:49:46
+finished at : 22:52:48
+Total time : 0 h 3 min 2 sec
 ```
 
 ### EKS Cluster deletion 
@@ -787,9 +787,9 @@ EKS Cluster status : DELETING
 
 EKS Cluster status : SUCCESSFULLY DELETED 
 
-started at : 14:18:55
-finished at : 14:31:22
-Total time : 0 h 12 min 27 sec
+started at : 22:58:06
+finished at : 22:58:26
+Total time : 0 h 0 min 20 sec
 ```
 
 ### EKS Security Groups deletion
