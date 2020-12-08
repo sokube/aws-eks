@@ -278,7 +278,7 @@ EKS_SECURITY_GROUP_ID=$(aws ec2 describe-security-groups \
 You can view the network architecture after all network resources creation : 
 
 
-![AWS network schema](https://user-images.githubusercontent.com/58267422/99916762-4d059100-2d0c-11eb-9439-0a9dea74cdad.png)
+![EKS network schema](https://user-images.githubusercontent.com/58267422/101462571-a5f43c80-393c-11eb-8509-33096c08d462.png)
 
 <br> 
 
@@ -847,23 +847,6 @@ aws ec2 delete-subnet --region $EKS_AWS_REGION --subnet-id $EKS_SUBNET_ID_02
 
 ### Security Groups deletion
 
-
-
-
-```shell
-for i in `aws ec2 describe-security-groups --region $EKS_AWS_REGION --filters Name=vpc-id,Values="$EKS_VPC_ID" | grep sg- | sed -E 's/^.*(sg-[a-z0-9]+).*$/\1/' | sort | uniq`; \
-do 
-  aws ec2 delete-security-group --region $EKS_AWS_REGION --group-id $i; 
-done
-
-```
-> Note : You can have a error message similar to  "An error occurred (CannotDelete) when calling the DeleteSecurityGroup operation: the specified group: "sg-xxxxxxxxxxxxxxxx" name: "default" cannot be deleted by a user"
-
-
-> This point is not blocking for the destruction of resources linked to EKS
-
-
-
 ```shell
 arg=$(aws ec2 describe-security-groups --region $EKS_AWS_REGION --filters Name=vpc-id,Values="$EKS_VPC_ID" | jq '.SecurityGroups[] | select(.GroupName != "default") | .GroupId' | xargs -n 1)
 
@@ -911,10 +894,10 @@ kubectl config delete-cluster arn:aws:eks:$EKS_AWS_REGION:$AWS_ARN_ACCOUNT:clust
 kubectl config delete-user arn:aws:eks:$EKS_AWS_REGION:$AWS_ARN_ACCOUNT:cluster/$EKS_CLUSTER_NAME
 ```
 
-You can also delete the entire kubeconfig file
-
 <details>
-<summary>**Warning : if you have other cluster avoid using this command**</summary>
+<summary>You can also delete the entire kubeconfig file</summary>
+
+**Warning : if you have other cluster avoid using this command**
 
 ```shell
 rm -fr $HOME/.kube/config

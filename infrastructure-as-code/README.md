@@ -50,7 +50,7 @@ aws cloudformation delete-stack --region $EKS_AWS_REGION --stack-name $EKS_STACK
 ### Retrieve the EKS cluster deletion status  
 
 ```shell
-started_date=$(date |  awk '{print $4}')
+started_date=$(date '+%H:%M:%S')
 start=`date +%s`
 while true; do 
   echo -e "EKS Cluster status : DELETE IN PROGRESS \n" 
@@ -59,7 +59,7 @@ while true; do
     echo -e "You must delete the dependency object \n"
     end=`date +%s`
     runtime=$((end-start))
-    finished_date=$(date |  awk '{print $4}')
+    finished_date=$(date '+%H:%M:%S')
     echo "started at :" $started_date 
     echo "finished at :" $finished_date
     hours=$((runtime / 3600)); minutes=$(( (runtime % 3600) / 60 )); seconds=$(( (runtime % 3600) % 60 )); echo "Total time : $hours h $minutes min $seconds sec"
@@ -107,7 +107,7 @@ aws cloudformation delete-stack --region $EKS_AWS_REGION --stack-name $EKS_STACK
 ### Retrieve the EKS cluster deletion status
 
 ```shell
-started_date=$(date |  awk '{print $4}')
+started_date=$(date '+%H:%M:%S')
 start=`date +%s`
 while true; do 
   echo -e "EKS Cluster status : DELETE IN PROGRESS \n" 
@@ -116,7 +116,7 @@ while true; do
     echo -e "EKS Cluster status : SUCCESSFULLY DELETED \n"
     end=`date +%s`
     runtime=$((end-start))
-    finished_date=$(date |  awk '{print $4}')
+    finished_date=$(date '+%H:%M:%S')
     echo "started at :" $started_date 
     echo "finished at :" $finished_date
     hours=$((runtime / 3600)); minutes=$(( (runtime % 3600) / 60 )); seconds=$(( (runtime % 3600) % 60 )); echo "Total time : $hours h $minutes min $seconds sec"
@@ -174,10 +174,10 @@ kubectl config delete-cluster arn:aws:eks:$EKS_AWS_REGION:$AWS_ARN_ACCOUNT:clust
 kubectl config delete-user arn:aws:eks:$EKS_AWS_REGION:$AWS_ARN_ACCOUNT:cluster/$EKS_CLUSTER_NAME
 ```
 
-You can also delete the entire kubeconfig file
-
 <details>
-<summary>**Warning : if you have other cluster avoid using this command**</summary>
+<summary>You can also delete the entire kubeconfig file</summary>
+
+**Warning : if you have other cluster avoid using this command**
 
 ```shell
 rm -fr $HOME/.kube/config

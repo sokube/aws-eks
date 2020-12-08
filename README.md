@@ -40,16 +40,16 @@ To deploy the EKS Cluster we purpose two methods :
 
 ## EKS Architecture for Control Plane and Worker Node Communication
 
-![AWS schema communication](https://user-images.githubusercontent.com/58267422/99916723-10d23080-2d0c-11eb-851f-1d8dd8348bce.png)
+![EKS communication infra](https://user-images.githubusercontent.com/58267422/101462536-9d9c0180-393c-11eb-9463-ae822e169035.png)
 
 <br>
 
 ## EKS Detailed Network Infrastructure
 
-![AWS network schema](https://user-images.githubusercontent.com/58267422/99916762-4d059100-2d0c-11eb-9439-0a9dea74cdad.png)
+![EKS network schema](https://user-images.githubusercontent.com/58267422/101462571-a5f43c80-393c-11eb-8509-33096c08d462.png)
 
 <br>
 
 ## EKS Project Architecture
 
-![AWS Schema infrastructure](https://user-images.githubusercontent.com/58267422/99916726-13348a80-2d0c-11eb-9e6a-f6a133d8d004.png)
+![EKS infra schema](https://user-images.githubusercontent.com/58267422/101462557-a2f94c00-393c-11eb-885b-cb4ad1367423.png)
