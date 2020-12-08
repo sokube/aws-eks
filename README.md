@@ -12,7 +12,7 @@
 
 ## AWS Elastic Kubernetes Service
 
-[AWS Elastic Kubernetes Services (EKS)](https://aws.amazon.com/eks/) is a fully managed [Kubernetes](https://kubernetes.io/) service provided by AWS. 
+[AWS Elastic Kubernetes Services (EKS)](https://aws.amazon.com/eks/?nc1=h_ls) is a fully managed [Kubernetes](https://kubernetes.io/) service provided by AWS. 
 
 <br>
 

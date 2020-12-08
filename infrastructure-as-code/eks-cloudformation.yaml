@@ -75,10 +75,12 @@
   
     AvailabilityZonePublicSubnet01:
       Type: CommaDelimitedList<AWS::EC2::AvailabilityZone::Name>
+      Default: eu-west-3a
       Description: Availability Zone for the Public Subnet 01. 
 
     AvailabilityZonePublicSubnet02:
       Type: CommaDelimitedList<AWS::EC2::AvailabilityZone::Name>
+      Default: eu-west-3b
       Description: Availability Zone for the Public Subnet 02.
   
   Metadata:
