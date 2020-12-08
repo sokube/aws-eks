@@ -53,7 +53,8 @@ aws cloudformation delete-stack --region $EKS_AWS_REGION --stack-name $EKS_STACK
 started_date=$(date '+%H:%M:%S')
 start=`date +%s`
 while true; do 
-  echo -e "EKS Cluster status : DELETE IN PROGRESS \n" 
+  echo -e "EKS Cluster status : DELETE IN PROGRESS \n"
+  sleep 10
   if [ "$(aws cloudformation describe-stacks --region $EKS_AWS_REGION --stack-name $EKS_STACK_NAME --query "Stacks[*].StackStatus" --output text)" == DELETE_FAILED ]; then
     echo -e "EKS Cluster status : DELETE FAILED \n"
     echo -e "You must delete the dependency object \n"
@@ -110,7 +111,8 @@ aws cloudformation delete-stack --region $EKS_AWS_REGION --stack-name $EKS_STACK
 started_date=$(date '+%H:%M:%S')
 start=`date +%s`
 while true; do 
-  echo -e "EKS Cluster status : DELETE IN PROGRESS \n" 
+  echo -e "EKS Cluster status : DELETE IN PROGRESS \n"
+  sleep 10
   aws cloudformation describe-stacks --region $EKS_AWS_REGION --stack-name $EKS_STACK_NAME --query "Stacks[*].StackStatus" --output text &>/dev/null
   if [[ "$?" -ne 0 ]]; then
     echo -e "EKS Cluster status : SUCCESSFULLY DELETED \n"
