@@ -6,7 +6,7 @@ This tutorial leverages the [Amazon Web Services](https://aws.amazon.com/) to pr
 
 ## AWS Command Line Interface (CLI)
 
-The [AWS Command Line Interface (CLI)](https://aws.amazon.com/cli/) is a unified tool to manage your AWS services. With just one tool to download and configure, you can control multiple AWS services from the command line and automate them through scripts.
+The [AWS Command Line Interface (CLI)](https://aws.amazon.com/cli/?nc1=h_ls) is a unified tool to manage your AWS services. With just one tool to download and configure, you can control multiple AWS services from the command line and automate them through scripts.
 To perform operations and interact with AWS you need to configure basic settings for AWS CLI like security credentials, AWS Region or default output format. You can quickly set up AWS CLI with the [official documentation](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html).
 
 ## AWS CloudFormation

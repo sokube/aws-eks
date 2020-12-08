@@ -1,9 +1,9 @@
 
 # Deployment 
 
-For deployment of AWS EKS Cluster you can follow the complete tutorial by clicking **[AWS EKS Deployment Tutorial](https://bit.ly/2BzEgYy)** or on the following **SoKube** image : 
+For deployment of AWS EKS Cluster you can follow the complete tutorial by clicking **[AWS EKS Deployment Tutorial](https://www.sokube.ch/post/aws-kubernetes-aws-elastic-kubernetes-service-eks)** or on the following **SoKube** image : 
 
-[![SoKube](https://user-images.githubusercontent.com/58267422/95017213-6c5f3680-0658-11eb-8bda-9d8e5f986bcf.png)](https://bit.ly/2BzEgYy)
+[![SoKube](https://user-images.githubusercontent.com/58267422/95017213-6c5f3680-0658-11eb-8bda-9d8e5f986bcf.png)](https://www.sokube.ch/post/aws-kubernetes-aws-elastic-kubernetes-service-eks)
 
 <br>
 
