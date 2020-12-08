@@ -162,7 +162,7 @@ rm -rf $HOME/aws-eks/infrastructure-as-code/eks.id_rsa
 ```shell
 EKS_AWS_REGION=eu-west-3
 EKS_CLUSTER_NAME=EKS
-AWS_ARN_ACCOUNT=$(aws sts get-caller-identity --query "Account" --output text) && echo AWS_ARN_ACCOUNT
+AWS_ARN_ACCOUNT=$(aws sts get-caller-identity --query "Account" --output text) && echo $AWS_ARN_ACCOUNT
 ```
 
 #### Delete Cluster Access
@@ -173,7 +173,6 @@ kubectl config unset clusters.arn:aws:eks:$EKS_AWS_REGION:$AWS_ARN_ACCOUNT:clust
 kubectl config unset contexts.arn:aws:eks:$EKS_AWS_REGION:$AWS_ARN_ACCOUNT:cluster/$EKS_CLUSTER_NAME
 kubectl config delete-context arn:aws:eks:$EKS_AWS_REGION:$AWS_ARN_ACCOUNT:cluster/$EKS_CLUSTER_NAME
 kubectl config delete-cluster arn:aws:eks:$EKS_AWS_REGION:$AWS_ARN_ACCOUNT:cluster/$EKS_CLUSTER_NAME
-kubectl config delete-user arn:aws:eks:$EKS_AWS_REGION:$AWS_ARN_ACCOUNT:cluster/$EKS_CLUSTER_NAME
 ```
 
 <details>
