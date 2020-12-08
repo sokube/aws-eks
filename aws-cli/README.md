@@ -382,7 +382,8 @@ started_date=$(date '+%H:%M:%S')
 start=`date +%s`
 while true; do
   echo -e "EKS Cluster status : CREATING \n"
-  if [ $(aws eks --region $EKS_AWS_REGION describe-cluster --name $EKS_CLUSTER_NAME --query "cluster.status" --output text) == ACTIVE ]
+  sleep 10
+  if [[ $(aws eks --region $EKS_AWS_REGION describe-cluster --name $EKS_CLUSTER_NAME --query "cluster.status" --output text) == ACTIVE ]]
   then
     echo -e "EKS Cluster status : ACTIVE \n"
     end=`date +%s`
@@ -506,7 +507,8 @@ started_date=$(date '+%H:%M:%S')
 start=`date +%s`
 while true; do
   echo -e "EKS Node Group status : CREATING \n"
-  if [ $(aws eks --region $EKS_AWS_REGION describe-nodegroup --cluster-name $EKS_CLUSTER_NAME --nodegroup-name $EKS_NODE_GROUP_NAME --query "nodegroup.status" --output text) == ACTIVE ]
+  sleep 10
+  if [[ $(aws eks --region $EKS_AWS_REGION describe-nodegroup --cluster-name $EKS_CLUSTER_NAME --nodegroup-name $EKS_NODE_GROUP_NAME --query "nodegroup.status" --output text) == ACTIVE ]]
   then
     echo -e "EKS Node Group status : ACTIVE \n"
     end=`date +%s`
@@ -677,7 +679,6 @@ Keep in mind that resources, even idle, are provisioned and billed. To avoid exp
 ### Define EKS Cluster resources  
 
 ```shell
-
 export EKS_AWS_REGION="eu-west-3" 
 export EKS_CLUSTER_NAME="EKS"
 export EKS_NODE_GROUP_NAME="NodeGroup01"
@@ -712,6 +713,7 @@ started_date=$(date '+%H:%M:%S')
 start=`date +%s`
 while true; do 
   echo -e "EKS Node Group status : DELETING  \n"
+  sleep 10
   aws eks --region $EKS_AWS_REGION describe-nodegroup --cluster-name $EKS_CLUSTER_NAME --nodegroup-name $EKS_NODE_GROUP_NAME --query "nodegroup.status" --output text &>/dev/null
   if [[ "$?" -ne 0 ]]; then
     echo -e "EKS Node Group status : SUCCESSFULLY DELETED \n"
@@ -760,6 +762,7 @@ started_date=$(date '+%H:%M:%S')
 start=`date +%s`
 while true; do
   echo -e "EKS Cluster status : DELETING \n"
+  sleep 10
   aws eks --region $EKS_AWS_REGION describe-cluster --name $EKS_CLUSTER_NAME --query "cluster.status" --output text --output text &>/dev/null
   if [[ "$?" -ne 0 ]]; then
     echo -e "EKS Cluster status : SUCCESSFULLY DELETED \n"
@@ -844,6 +847,9 @@ aws ec2 delete-subnet --region $EKS_AWS_REGION --subnet-id $EKS_SUBNET_ID_02
 
 ### Security Groups deletion
 
+
+
+
 ```shell
 for i in `aws ec2 describe-security-groups --region $EKS_AWS_REGION --filters Name=vpc-id,Values="$EKS_VPC_ID" | grep sg- | sed -E 's/^.*(sg-[a-z0-9]+).*$/\1/' | sort | uniq`; \
 do 
@@ -855,6 +861,16 @@ done
 
 
 > This point is not blocking for the destruction of resources linked to EKS
+
+
+
+```shell
+arg=$(aws ec2 describe-security-groups --region $EKS_AWS_REGION --filters Name=vpc-id,Values="$EKS_VPC_ID" | jq '.SecurityGroups[] | select(.GroupName != "default") | .GroupId' | xargs -n 1)
+
+aws ec2 delete-security-group --region $EKS_AWS_REGION --group-id $arg
+```
+
+> We need [jq](https://stedolan.github.io/jq/) command-line JSON processor
 
 ### VPC deletion
 
@@ -874,11 +890,36 @@ aws ec2 delete-key-pair --region $EKS_AWS_REGION --key-name $EKS_KEY_PAIR_NAME
 rm -rf $HOME/aws-eks/aws-cli/eks.id_rsa
 ```
 
-### Kubeconfig file deletion
+### Kubeconfig deletion
+
+#### Export variable
+
+```shell
+EKS_AWS_REGION=eu-west-3
+EKS_CLUSTER_NAME=EKS
+AWS_ARN_ACCOUNT=$(aws sts get-caller-identity --query "Account" --output text) && echo AWS_ARN_ACCOUNT
+```
+
+#### Delete Cluster Access
+
+```shell
+kubectl config unset users.arn:aws:eks:$EKS_AWS_REGION:$AWS_ARN_ACCOUNT:cluster/$EKS_CLUSTER_NAME
+kubectl config unset clusters.arn:aws:eks:$EKS_AWS_REGION:$AWS_ARN_ACCOUNT:cluster/$EKS_CLUSTER_NAME
+kubectl config unset contexts.arn:aws:eks:$EKS_AWS_REGION:$AWS_ARN_ACCOUNT:cluster/$EKS_CLUSTER_NAME
+kubectl config delete-context arn:aws:eks:$EKS_AWS_REGION:$AWS_ARN_ACCOUNT:cluster/$EKS_CLUSTER_NAME
+kubectl config delete-cluster arn:aws:eks:$EKS_AWS_REGION:$AWS_ARN_ACCOUNT:cluster/$EKS_CLUSTER_NAME
+kubectl config delete-user arn:aws:eks:$EKS_AWS_REGION:$AWS_ARN_ACCOUNT:cluster/$EKS_CLUSTER_NAME
+```
+
+You can also delete the entire kubeconfig file
+
+<details>
+<summary>**Warning : if you have other cluster avoid using this command**</summary>
 
 ```shell
 rm -fr $HOME/.kube/config
 ```
+</details>
 
 ### aws-eks folder deletion
 

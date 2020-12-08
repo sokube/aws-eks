@@ -153,11 +153,36 @@ aws ec2 delete-key-pair --region $EKS_AWS_REGION --key-name $EKS_KEY_PAIR_NAME
 rm -rf $HOME/aws-eks/infrastructure-as-code/eks.id_rsa
 ```
 
-## Kubeconfig file deletion
+### Kubeconfig deletion
+
+#### Export variable
+
+```shell
+EKS_AWS_REGION=eu-west-3
+EKS_CLUSTER_NAME=EKS
+AWS_ARN_ACCOUNT=$(aws sts get-caller-identity --query "Account" --output text) && echo AWS_ARN_ACCOUNT
+```
+
+#### Delete Cluster Access
+
+```shell
+kubectl config unset users.arn:aws:eks:$EKS_AWS_REGION:$AWS_ARN_ACCOUNT:cluster/$EKS_CLUSTER_NAME
+kubectl config unset clusters.arn:aws:eks:$EKS_AWS_REGION:$AWS_ARN_ACCOUNT:cluster/$EKS_CLUSTER_NAME
+kubectl config unset contexts.arn:aws:eks:$EKS_AWS_REGION:$AWS_ARN_ACCOUNT:cluster/$EKS_CLUSTER_NAME
+kubectl config delete-context arn:aws:eks:$EKS_AWS_REGION:$AWS_ARN_ACCOUNT:cluster/$EKS_CLUSTER_NAME
+kubectl config delete-cluster arn:aws:eks:$EKS_AWS_REGION:$AWS_ARN_ACCOUNT:cluster/$EKS_CLUSTER_NAME
+kubectl config delete-user arn:aws:eks:$EKS_AWS_REGION:$AWS_ARN_ACCOUNT:cluster/$EKS_CLUSTER_NAME
+```
+
+You can also delete the entire kubeconfig file
+
+<details>
+<summary>**Warning : if you have other cluster avoid using this command**</summary>
 
 ```shell
 rm -fr $HOME/.kube/config
 ```
+</details>
 
 ## aws-eks folder deletion
 
